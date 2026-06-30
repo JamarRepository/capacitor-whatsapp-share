@@ -37,6 +37,7 @@
     "@capacitor/core": "^6.0.0"
   },
   "scripts": {
+    "prepare": "npm run build",
     "build": "npm run clean && tsc && rollup -c rollup.config.mjs",
     "clean": "rimraf ./dist",
     "docgen": "npm run build && docgen --api WhatsAppSharePlugin --output-readme README.md --output-json dist/docs.json",

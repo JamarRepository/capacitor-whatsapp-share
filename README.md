@@ -30,16 +30,14 @@ Plugin de Capacitor para compartir mensajes y archivos directamente a WhatsApp o
 
 ```bash
 # Última versión de la rama main
-npm install git+https://github.com/tu-empresa/capacitor-whatsapp-share.git
+npm install git+https://github.com/JamarRepository/capacitor-whatsapp-share.git
 
 # Versión específica por tag
-npm install git+https://github.com/tu-empresa/capacitor-whatsapp-share.git#v1.0.0
+npm install git+https://github.com/JamarRepository/capacitor-whatsapp-share.git#v1.0.0
 
 # Sincronizar con Android
 npx cap sync android
 ```
-
-> Reemplaza `tu-empresa/capacitor-whatsapp-share` con la ruta real de tu repositorio.
 
 ---
 
@@ -282,7 +280,7 @@ capacitor-whatsapp-share/
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/tu-empresa/capacitor-whatsapp-share.git
+git clone https://github.com/JamarRepository/capacitor-whatsapp-share.git
 cd capacitor-whatsapp-share
 
 # 2. Instalar dependencias
@@ -360,6 +358,6 @@ git push origin main --tags
 Los proyectos que usan el tag `#v1.0.1` deben actualizar con:
 
 ```bash
-npm install git+https://github.com/tu-empresa/capacitor-whatsapp-share.git#v1.0.1
+npm install git+https://github.com/JamarRepository/capacitor-whatsapp-share.git#v1.0.1
 npx cap sync android
 ```
