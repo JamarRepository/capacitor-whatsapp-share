@@ -1,0 +1,45 @@
+ion-card {
+  margin: 12px;
+  border-radius: 12px;
+}
+
+ion-card-subtitle {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ion-color-primary);
+}
+
+.file-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100px;
+  border: 2px dashed var(--ion-color-primary);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:active {
+    background: rgba(var(--ion-color-primary-rgb), 0.08);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--ion-color-medium);
+  }
+
+  .file-name {
+    color: var(--ion-text-color);
+    font-weight: 500;
+    ion-icon {
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+  }
+}

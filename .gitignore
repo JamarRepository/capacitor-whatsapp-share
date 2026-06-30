@@ -1,0 +1,86 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.pnpm-store/
+
+# Build output
+dist/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Android
+android/.gradle/
+android/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/captures/
+android/.externalNativeBuild/
+android/.cxx/
+
+# iOS
+ios/Pods/
+ios/*.xcworkspace
+ios/DerivedData/
+ios/*.pbxuser
+!default.pbxuser
+ios/*.mode1v3
+!default.mode1v3
+ios/*.mode2v3
+!default.mode2v3
+ios/*.perspectivev3
+!default.perspectivev3
+ios/xcuserdata/
+ios/*.xccheckout
+ios/*.moved-aside
+ios/fastlane/report.xml
+ios/fastlane/Preview.html
+ios/fastlane/screenshots/
+ios/fastlane/test_output/
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Packed npm
+*.tgz
+
+# Example app (Ionic/Angular + Capacitor)
+example/node_modules/
+example/.angular/
+example/www/
+example/android/.gradle/
+example/android/build/
+example/android/local.properties
+example/android/.idea/
+example/android/*.iml
+example/android/captures/
+example/android/.externalNativeBuild/
+example/android/.cxx/
+example/ios/Pods/
+example/ios/*.xcworkspace
+example/ios/DerivedData/
+example/ios/xcuserdata/

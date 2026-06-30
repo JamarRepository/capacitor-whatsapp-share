@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="logo-whatsapp" style="margin-right:8px;vertical-align:middle;"></ion-icon>
+      WhatsApp Share Demo
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="checkInstallation()" fill="clear">
+        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- ─── Selector de app ─── -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Aplicación destino</ion-card-subtitle>
+      <ion-card-title>Seleccionar app</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment [(ngModel)]="selectedApp">
+        <ion-segment-button value="whatsapp">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+          <ion-label>WhatsApp</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="whatsapp_business">
+          <ion-icon name="briefcase-outline"></ion-icon>
+          <ion-label>Business</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <ion-list lines="none" style="margin-top:12px;">
+        <ion-item>
+          <ion-icon slot="start" [name]="waInstalled ? 'checkmark-circle' : 'close-circle'" [color]="waInstalled ? 'success' : 'danger'"></ion-icon>
+          <ion-label>WhatsApp {{ waInstalled ? 'instalado' : 'no instalado' }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="start" [name]="wabInstalled ? 'checkmark-circle' : 'close-circle'" [color]="wabInstalled ? 'success' : 'danger'"></ion-icon>
+          <ion-label>WhatsApp Business {{ wabInstalled ? 'instalado' : 'no instalado' }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ─── Compartir a contacto ─── -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>shareToContact()</ion-card-subtitle>
+      <ion-card-title>Mensaje a contacto específico</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label position="stacked">JID o teléfono <ion-text color="medium">(ej: 5491112345678)</ion-text></ion-label>
+          <ion-input [(ngModel)]="jid" type="tel" placeholder="5491112345678" clearInput></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Mensaje</ion-label>
+          <ion-textarea [(ngModel)]="contactMessage" placeholder="Hola! Te escribo desde la app..." rows="3" autoGrow></ion-textarea>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" color="primary" [disabled]="sendingContact || !currentAppInstalled" (click)="shareToContact()" style="margin-top:12px;">
+        <ion-icon slot="start" name="chatbubble-ellipses-outline"></ion-icon>
+        <ion-label *ngIf="!sendingContact">Abrir en {{ appLabel }}</ion-label>
+        <ion-spinner *ngIf="sendingContact" name="crescent"></ion-spinner>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ─── Compartir archivo(s) por ruta ─── -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>shareFile()</ion-card-subtitle>
+      <ion-card-title>Compartir archivo(s) por ruta</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <div class="file-picker" (click)="fileInput.click()">
+        <ion-icon name="cloud-upload-outline" size="large" color="primary"></ion-icon>
+        <p>Toca para seleccionar uno o más archivos</p>
+      </div>
+      <input #fileInput type="file" multiple
+        accept="image/*,video/*,application/pdf,.doc,.docx,.xls,.xlsx"
+        hidden (change)="onFilesSelected($event)">
+
+      <!-- Lista de archivos seleccionados -->
+      <ion-list *ngIf="selectedFilePaths.length" lines="full" style="margin-top:8px;">
+        <ion-item *ngFor="let path of selectedFilePaths; let i = index">
+          <ion-icon slot="start" name="document-outline" color="primary"></ion-icon>
+          <ion-label class="ion-text-wrap">{{ selectedFiles[i].name }}</ion-label>
+          <ion-button slot="end" fill="clear" color="danger" (click)="removeFilePath(i)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+      <ion-item lines="none" style="margin-top:8px;">
+        <ion-label position="stacked">Descripción (opcional)</ion-label>
+        <ion-textarea [(ngModel)]="fileMessage" placeholder="Adjunto los archivos..." rows="2" autoGrow></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" color="secondary" [disabled]="sendingFile || !selectedFilePaths.length || !currentAppInstalled" (click)="shareFiles()" style="margin-top:12px;">
+        <ion-icon slot="start" name="share-social-outline"></ion-icon>
+        <ion-label *ngIf="!sendingFile">Compartir {{ selectedFilePaths.length || '' }} archivo(s) en {{ appLabel }}</ion-label>
+        <ion-spinner *ngIf="sendingFile" name="crescent"></ion-spinner>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ─── Compartir archivo(s) como Base64 ─── -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>shareFileFromBase64()</ion-card-subtitle>
+      <ion-card-title>Compartir archivo(s) desde Base64</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <div class="file-picker" (click)="base64Input.click()">
+        <ion-icon name="code-working-outline" size="large" color="tertiary"></ion-icon>
+        <p>Selecciona archivos para convertir a Base64</p>
+      </div>
+      <input #base64Input type="file" multiple
+        accept="image/*,video/*,application/pdf,.doc,.docx,.xls,.xlsx"
+        hidden (change)="onBase64FilesSelected($event)">
+
+      <!-- Lista de archivos Base64 -->
+      <ion-list *ngIf="base64Files.length" lines="full" style="margin-top:8px;">
+        <ion-item *ngFor="let f of base64Files; let i = index">
+          <ion-icon slot="start" name="document-lock-outline" color="tertiary"></ion-icon>
+          <ion-label class="ion-text-wrap">
+            {{ f.fileName }}
+            <p>{{ f.mimeType || 'tipo desconocido' }}</p>
+          </ion-label>
+          <ion-button slot="end" fill="clear" color="danger" (click)="removeBase64File(i)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+      <ion-item lines="none" style="margin-top:8px;">
+        <ion-label position="stacked">Descripción (opcional)</ion-label>
+        <ion-textarea [(ngModel)]="base64Message" placeholder="Adjunto los archivos..." rows="2" autoGrow></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" color="tertiary" [disabled]="sendingBase64 || !base64Files.length || !currentAppInstalled" (click)="shareBase64()" style="margin-top:12px;">
+        <ion-icon slot="start" name="share-social-outline"></ion-icon>
+        <ion-label *ngIf="!sendingBase64">Compartir {{ base64Files.length || '' }} archivo(s) en {{ appLabel }}</ion-label>
+        <ion-spinner *ngIf="sendingBase64" name="crescent"></ion-spinner>
+      </ion-button>
+
+      <ion-note color="medium" style="display:block;margin-top:8px;font-size:0.8rem;">
+        El plugin decodifica el Base64 en un archivo temporal y lo envía.
+        Útil cuando el archivo proviene de una respuesta de API.
+      </ion-note>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

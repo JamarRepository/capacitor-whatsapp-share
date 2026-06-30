@@ -1,0 +1,73 @@
+{
+  "name": "capacitor-whatsapp-share",
+  "version": "1.0.0",
+  "description": "Capacitor plugin to share messages to a specific WhatsApp or WhatsApp Business chat using JID",
+  "main": "dist/plugin.cjs.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "unpkg": "dist/plugin.js",
+  "files": [
+    "android/src/main/",
+    "android/build.gradle",
+    "dist/",
+    "ios/Sources/",
+    "ios/Plugin.podspec",
+    "LICENSE",
+    "README.md"
+  ],
+  "author": "Muebles Jamar",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/docgen": "^0.2.2",
+    "@capacitor/ios": "^6.0.0",
+    "@ionic/eslint-config": "^0.4.0",
+    "@ionic/prettier-config": "^4.0.0",
+    "@ionic/swiftlint-config": "^1.1.2",
+    "eslint": "^8.57.0",
+    "prettier": "~3.3.2",
+    "swiftlint": "^1.0.2",
+    "typescript": "~5.4.5",
+    "rollup": "^4.18.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "rimraf": "^5.0.7"
+  },
+  "peerDependencies": {
+    "@capacitor/core": "^6.0.0"
+  },
+  "scripts": {
+    "build": "npm run clean && tsc && rollup -c rollup.config.mjs",
+    "clean": "rimraf ./dist",
+    "docgen": "npm run build && docgen --api WhatsAppSharePlugin --output-readme README.md --output-json dist/docs.json",
+    "lint": "eslint . && prettier --check . && swiftlint lint ios/Sources/**/*.swift",
+    "fmt": "eslint --fix . && prettier --write . && swiftlint --fix --format ios/Sources/**/*.swift",
+    "pack:plugin": "npm run build && npm pack",
+    "prepublishOnly": "npm run build",
+    "verify": "npm run verify:ios && npm run verify:android",
+    "verify:ios": "cd ios && pod install && xcodebuild -workspace Plugin.xcworkspace -scheme Plugin -destination generic/platform=iOS && cd ..",
+    "verify:android": "cd android && ./gradlew clean build test && cd ..",
+    "watch": "tsc --watch"
+  },
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    },
+    "android": {
+      "src": "android"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "capacitor",
+    "plugin",
+    "whatsapp",
+    "whatsapp-business",
+    "share",
+    "jid",
+    "social",
+    "native"
+  ]
+}

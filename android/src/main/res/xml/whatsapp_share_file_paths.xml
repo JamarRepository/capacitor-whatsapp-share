@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Almacenamiento externo público: /storage/emulated/0/... -->
+    <external-path name="external_storage" path="." />
+
+    <!-- Directorio files/ interno de la app -->
+    <files-path name="internal_files" path="." />
+
+    <!-- Directorio cache/ interno de la app -->
+    <cache-path name="internal_cache" path="." />
+
+    <!-- Directorio files/ externo de la app: Android/data/<pkg>/files/ -->
+    <external-files-path name="external_app_files" path="." />
+
+    <!-- Directorio cache/ externo de la app: Android/data/<pkg>/cache/ -->
+    <external-cache-path name="external_app_cache" path="." />
+</paths>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Declare visibility of WhatsApp and WhatsApp Business packages.
+        Required on Android 11+ (API 30+) to query installed apps.
+    -->
+    <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+    </queries>
+
+    <application>
+        <!--
+            FileProvider para compartir archivos de forma segura (Android 7+).
+            La autoridad usa el applicationId de la app host para evitar conflictos.
+        -->
+        <provider
+            android:name="com.mueblesjamar.whatsappshare.WhatsAppShareFileProvider"
+            android:authorities="${applicationId}.whatsappshare.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/whatsapp_share_file_paths" />
+        </provider>
+    </application>
+
+</manifest>
