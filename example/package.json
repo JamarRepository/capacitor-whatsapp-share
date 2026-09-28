@@ -10,7 +10,7 @@
     "ionic:serve": "ng serve --port=8100"
   },
   "dependencies": {
-    "@angular/common": "^17.3.0",
+    "@angular/common": "^20.3.28",
     "@angular/core": "^17.3.0",
     "@angular/forms": "^17.3.0",
     "@angular/platform-browser": "^17.3.0",
